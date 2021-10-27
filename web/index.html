@@ -30,6 +30,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -97,5 +98,28 @@
       loadMainDartJs();
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+  <script type="module">
+      // Import the functions you need from the SDKs you need
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCab9BihXdaTbX5Prt_Kq6Q1B0UK8dTqpk",
+        authDomain: "czaje-4bae8.firebaseapp.com",
+        projectId: "czaje-4bae8",
+        storageBucket: "czaje-4bae8.appspot.com",
+        messagingSenderId: "424752125196",
+        appId: "1:424752125196:web:baee8070f7154db2116529",
+        measurementId: "G-75NESFQ9GL"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 </body>
 </html>
