@@ -9,15 +9,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './Tea.dart';
 
 class Controller extends GetxController {
+    Map<String, Color> teaColors = {};
     Map<String, List<Tea>> teaTypes = {};
+    var dataFetched = false;
+    Color translateHexToColor(String stringHex){
+        if(!stringHex.isHexadecimal) return Colors.white54;
+
+        final hex =  int.parse(stringHex.replaceFirst('#','0xff'));
+        return Color(hex);
+    }
        Future<void> deserializeData() async{
+           assert(teaTypes.isEmpty);
+           if(teaTypes.isNotEmpty) teaTypes = {};
            print('Fetching data from firebasesirestore');
             FirebaseFirestore firebase = FirebaseFirestore.instance;
             var snapshotTeaTypes = firebase.collection('tea_types');
             var teaTypesDocs =  await snapshotTeaTypes.get().then((snapshot)=> snapshot.docs);
            for( var teaType in teaTypesDocs){
                 teaTypes.addEntries({MapEntry(teaType.id, <Tea>[])});
-
+                teaColors.addEntries({MapEntry(teaType.id, translateHexToColor(teaType.data()['color'].toString()))});
                 var snapshotTea = firebase.collection('tea_types').doc(teaType.id).collection('teas');
                 var teaDocs = await snapshotTea.get().then((snapshot) => snapshot.docs);
                 for(var teaDoc in teaDocs){
