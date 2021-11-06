@@ -7,11 +7,61 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 import './Tea.dart';
+import './BrewDialog.dart';
 
 class Controller extends GetxController {
+    var  brewTimer = (-1).obs;
+    var isInitTimer = true.obs;
+    var brewIndex = (-1).obs;
+    final timerStateString = ["Pour the wather", "Close brewer and wait", "Pour tea into the cup"];
+    var timerStateIndex = (0).obs;
+
+    var doReset = false;
     Map<String, Color> teaColors = {};
     Map<String, List<Tea>> teaTypes = {};
     var dataFetched = false;
+    void startInitialTimer(int time) async {
+        brewTimer.value = time;
+        while(brewTimer!=0){
+            if(doReset){
+                doReset = false;
+                brewTimer.value = -1;
+                brewIndex.value = -1;
+                return;
+            }
+            await Future.delayed(Duration(seconds: 1));
+            brewTimer.value--;
+            
+        }
+        brewTimer.value = -1;
+        isInitTimer.value = false;
+    }
+    void startTimer(int time) async {
+        brewTimer.value = time;
+        while(brewTimer!=0){
+            if(doReset){
+                doReset = false;
+                brewTimer.value = -1;
+                brewIndex.value = -1;
+                isInitTimer.value = true;
+                return;
+            }
+            await Future.delayed(Duration(seconds: 1));
+            if(brewTimer.value > time - 5){
+                timerStateIndex.value = 0;
+            }else if(brewTimer.value > 5){
+                timerStateIndex.value = 1;
+            }else{ 
+                timerStateIndex.value = 2;
+            }
+            brewTimer.value--;
+            
+        }
+        Get.snackbar('Ready!!!','You can enjoy your tea');
+        brewTimer.value = -1;
+        brewIndex.value = -1;
+        isInitTimer.value = true;
+    }
     Color translateHexToColor(String stringHex){
         if(!stringHex.isHexadecimal) return Colors.white54;
 

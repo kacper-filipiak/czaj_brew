@@ -9,6 +9,7 @@ import './ErrorPage.dart';
 import './LoadingPage.dart';
 import './MainPage.dart';
 import './ControllerGetx.dart';
+import './TeaPage.dart';
 import './Tea.dart';
 
 void main() {
