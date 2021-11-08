@@ -53,7 +53,7 @@ class InitialTimer extends StatelessWidget{
     build(BuildContext context){
         Controller c = Get.find();
         c.startInitialTimer(time);
-        return Center( child: Obx(() =>  Text("Start brewing in: ${c.brewTimer.value} seconds")));
+        return Center( child: Obx(() =>  Text("Start brewing in: ${c.brewTimer.value.toStringAsFixed(1)} seconds")));
     }
 
 }
@@ -77,7 +77,7 @@ class TeaTimer extends StatelessWidget{
                       children: [
                 
                 Obx(() => Text(c.timerStateString[c.timerStateIndex.value])),
-                Obx(() =>  Text("${c.brewTimer.value}"))
+                Obx(() =>  Text("${c.brewTimer.value.toStringAsFixed(2) }"))
           ],),
               ),
 

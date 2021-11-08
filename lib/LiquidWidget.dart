@@ -11,7 +11,7 @@ class LiquidPinter extends CustomPainter{
 
         
         var paint = Paint();
-        paint.color = Color.fromARGB(255, 193,138,69);
+        paint.color = Color.fromARGB(255, 23,28,230);
         paint.strokeWidth = 0;
         paint.style = PaintingStyle.fill;
 
@@ -39,7 +39,6 @@ class LiquidPinter extends CustomPainter{
         path2.close();
 
           canvas.drawPath(path2, paint);
-          c.dividerBounce.value += 0.000001;
     }
 
     @override 

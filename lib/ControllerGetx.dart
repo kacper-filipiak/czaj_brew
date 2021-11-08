@@ -10,7 +10,8 @@ import './Tea.dart';
 import './BrewDialog.dart';
 
 class Controller extends GetxController {
-    var  brewTimer = (-1).obs;
+    final speed = 1;
+    var  brewTimer = (-1.0).obs;
     var isInitTimer = true.obs;
     var brewIndex = (-1).obs;
     final timerStateString = ["Pour the wather", "Close brewer and wait", "Pour tea into the cup"];
@@ -57,32 +58,32 @@ class Controller extends GetxController {
     Map<String, List<Tea>> teaTypes = {};
     var dataFetched = false;
     void startInitialTimer(int time) async {
-        brewTimer.value = time;
-        while(brewTimer!=0){
+        brewTimer.value = 1.0 * time;
+        while(brewTimer>0){
             if(doReset){
                 doReset = false;
-                brewTimer.value = -1;
+                brewTimer.value = -1.0;
                 brewIndex.value = -1;
                 return;
             }
-            await Future.delayed(Duration(seconds: 1));
-            brewTimer.value--;
+            await Future.delayed(Duration(milliseconds: speed));
+            brewTimer.value-= speed * 0.01;
             
         }
-        brewTimer.value = -1;
+        brewTimer.value = -1.0;
         isInitTimer.value = false;
     }
     void startTimer(int time) async {
-        brewTimer.value = time;
-        while(brewTimer!=0){
+        brewTimer.value = 1.0 * time;
+        while(brewTimer > 0){
             if(doReset){
                 doReset = false;
-                brewTimer.value = -1;
+                brewTimer.value = -1.0;
                 brewIndex.value = -1;
                 isInitTimer.value = true;
                 return;
             }
-            await Future.delayed(Duration(seconds: 1));
+            await Future.delayed(Duration(milliseconds: speed));
             if(brewTimer.value > time - 5){
                 timerStateIndex.value = 0;
             }else if(brewTimer.value > 5){
@@ -90,11 +91,11 @@ class Controller extends GetxController {
             }else{ 
                 timerStateIndex.value = 2;
             }
-            brewTimer.value--;
+            brewTimer.value-=speed*0.01;
             
         }
         Get.snackbar('Ready!!!','You can enjoy your tea');
-        brewTimer.value = -1;
+        brewTimer.value = -1.0;
         brewIndex.value = -1;
         isInitTimer.value = true;
     }
