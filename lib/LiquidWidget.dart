@@ -11,15 +11,15 @@ class LiquidPinter extends CustomPainter{
 
         
         var paint = Paint();
-        paint.color = Color.fromARGB(255, 23,28,230);
+        paint.color = Color.fromARGB(255, 93,98,140);
         paint.strokeWidth = 0;
         paint.style = PaintingStyle.fill;
 
         var path = Path();
-        path.moveTo(paint.strokeWidth, size.height/2 +(size.height/2) * c.liquidLineFirst[0]);
+        path.moveTo(paint.strokeWidth, size.height*0.9 -(0.8*size.height ) * c.liquidLineFirst[0]);
         
         for(var i = 1; i<c.liquidLineFirst.value.length; i++){
-            path.lineTo((i )*size.width/(c.liquidLineFirst.value.length - 1),size.height/2 + (size.height/2) * c.liquidLineFirst[i]);
+            path.lineTo((i )*size.width/(c.liquidLineFirst.value.length - 1),size.height*0.9 - (0.8*size.height) * c.liquidLineFirst[i]);
         }
         path.lineTo(size.width, size.height);
         path.lineTo(paint.strokeWidth,size.height);
@@ -27,12 +27,12 @@ class LiquidPinter extends CustomPainter{
         print('pinting');
         canvas.drawPath(path, paint);
 
-        paint.color =  Color.fromARGB( 100, 5, 5, 255);
+        paint.color =  Color.fromARGB( 100, 195, 195, 85);
         var path2 = Path();
-        path2.moveTo(paint.strokeWidth,size.height/2 + (size.height/2) * c.liquidLineSecond[0]);
+        path2.moveTo(paint.strokeWidth,size.height*0.9 - (0.8*size.height) * c.liquidLineSecond[0]);
         
         for(var i = 1; i<c.liquidLineSecond.value.length; i++){
-            path2.lineTo((i)*size.width/(c.liquidLineSecond.value.length - 1),size.height/2 + (size.height/2) * c.liquidLineSecond[i]);
+            path2.lineTo((i)*size.width/(c.liquidLineSecond.value.length - 1),size.height*0.9 - (0.8*size.height) * c.liquidLineSecond[i]);
         }
         path2.lineTo(size.width, size.height);
         path2.lineTo(paint.strokeWidth,size.height);

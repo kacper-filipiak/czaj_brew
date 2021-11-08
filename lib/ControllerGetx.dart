@@ -20,14 +20,16 @@ class Controller extends GetxController {
 
     var liquidLineFirst = List<double>.filled(25, 0.0).obs;
     var liquidLineSecond = List<double>.filled(25, 0.0).obs;
-    void flow() async{
-        var k = 1.0;
+    void flow( final int time) async{
+        final rng = Random(DateTime.now().microsecondsSinceEpoch);
+        var k1 = rng.nextDouble();
+        var k2 = rng.nextDouble();
         while(brewIndex.value != -1){
-            k += 0.003;
-            k %= 100;
+            k1 += 0.008;
+            k2 += 0.018;
             for(var i = 0; i < liquidLineFirst.value.length; i++){
-                liquidLineFirst.value[i] = (( brewTimer.value)/180)*sin(0.05*(k+i)*pi);
-                liquidLineSecond.value[i] = (( brewTimer.value)/180)*cos(0.05*(-k+i)*pi);
+                liquidLineFirst.value[i] = (0.9*(( brewTimer.value)/time)+  0.1*sin(0.05*(k1+i)*pi));
+                liquidLineSecond.value[i] = (0.9*(( brewTimer.value)/time)+ 0.1*cos(0.05*(k2+i)*pi));
             }
             await Future.delayed(Duration(milliseconds: 1));
         }

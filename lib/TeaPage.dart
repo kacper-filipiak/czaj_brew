@@ -21,7 +21,21 @@ class TeaPage extends StatelessWidget{
         return Scaffold(
                 body: Column(
                         children: [
-                            SizedBox(height: MediaQuery.of(context).size.height * 0.2,
+                            SizedBox( 
+                                    height: context.mediaQuerySize.height * 0.2,
+                                    child: Container(
+                                    decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomLeft,
+                                                    colors: <Color>[
+                                                        Colors.black,
+                                                        c.teaColors[name]!,
+                                                      Colors.white60,
+                                                    ],
+                                            ),
+                                    ),
+                                    ),
                                     ),
                             Container(
                                     color: Theme.of(context).canvasColor,
@@ -35,7 +49,8 @@ class TeaPage extends StatelessWidget{
 
                         ]),
                 floatingActionButton: FloatingActionButton(
-                        child: Icon( Icons.coffee),
+                        backgroundColor: c.teaColors[name]!,
+                        child: Icon( Icons.coffee, ),
                         onPressed: () async {await  Get.dialog(Dialog(child: (BrewDialog(brew_times: tea.brew_time, context:
                                                         context)))).whenComplete(() =>  c.doReset = true);},
                 ),

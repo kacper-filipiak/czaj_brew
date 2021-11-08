@@ -66,7 +66,7 @@ class TeaTimer extends StatelessWidget{
     build(BuildContext context){
         Controller c = Get.find();
         c.startTimer(time);
-        c.flow();
+        c.flow(time);
         return  Center(
           child: CustomPaint(
               painter: LiquidPinter(),
