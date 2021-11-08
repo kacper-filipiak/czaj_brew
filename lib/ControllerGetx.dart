@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'dart:math';
 
 import './Tea.dart';
 import './BrewDialog.dart';
@@ -15,6 +15,42 @@ class Controller extends GetxController {
     var brewIndex = (-1).obs;
     final timerStateString = ["Pour the wather", "Close brewer and wait", "Pour tea into the cup"];
     var timerStateIndex = (0).obs;
+    var dividerBounce = (1.0).obs;
+
+    var liquidLineFirst = List<double>.filled(25, 0.0).obs;
+    var liquidLineSecond = List<double>.filled(25, 0.0).obs;
+    void flow() async{
+        var k = 1.0;
+        while(brewIndex.value != -1){
+            k += 0.003;
+            k %= 100;
+            for(var i = 0; i < liquidLineFirst.value.length; i++){
+                liquidLineFirst.value[i] = (( brewTimer.value)/180)*sin(0.05*(k+i)*pi);
+                liquidLineSecond.value[i] = (( brewTimer.value)/180)*cos(0.05*(-k+i)*pi);
+            }
+            await Future.delayed(Duration(milliseconds: 1));
+        }
+    }
+    /*void flow() async{
+        while(brewIndex.value != -1){
+            liquidLine.value[liquidLine.value.length - 2] = Random().nextDouble() * 10;
+            var firstDeriv = List<double>.filled(liquidLine.value.length + 1, 0);
+            for(var i = 1; i < liquidLine.value.length - 1; i++){
+                firstDeriv[i] = liquidLine.value[i] - liquidLine.value[i-1];
+            }
+
+            var secondDeriv = List<double>.filled(liquidLine.value.length, 0);
+            for(var i = 0; i < firstDeriv.length - 1; i++){
+                secondDeriv[i] = firstDeriv[i+1] - firstDeriv[i];
+            }
+            for(var i = 2; i < liquidLine.length - 1; i++){
+                liquidLine[i] -= secondDeriv[i + 1] * 0.7;
+                liquidLine[i] -= liquidLine[i] * 0.2;
+            }
+            print(liquidLine.value.toString());
+            await Future.delayed(Duration(milliseconds: 15));
+        }
+    }*/
 
     var doReset = false;
     Map<String, Color> teaColors = {};

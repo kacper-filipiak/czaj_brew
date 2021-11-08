@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import './ControllerGetx.dart';
+import './LiquidWidget.dart';
 
 class BrewDialog extends StatefulWidget{
     const BrewDialog({Key? key,
@@ -47,7 +48,7 @@ class _BrewDialogState extends State<BrewDialog>{
 class InitialTimer extends StatelessWidget{
     InitialTimer({Key? key}) : super(key: key);
 
-    final int time = 5;
+    final int time = 2;
     @override
     build(BuildContext context){
         Controller c = Get.find();
@@ -56,6 +57,7 @@ class InitialTimer extends StatelessWidget{
     }
 
 }
+
 class TeaTimer extends StatelessWidget{
     TeaTimer({Key? key, required this.time}) : super(key: key);
 
@@ -64,14 +66,23 @@ class TeaTimer extends StatelessWidget{
     build(BuildContext context){
         Controller c = Get.find();
         c.startTimer(time);
-        return Column( 
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-            
-            Obx(() => Text(c.timerStateString[c.timerStateIndex.value])),
-            Obx(() =>  Text("${c.brewTimer.value}"))
-        ]);
+        c.flow();
+        return  Center(
+          child: CustomPaint(
+              painter: LiquidPinter(),
+              child: Center(
+                child: Column( 
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                
+                Obx(() => Text(c.timerStateString[c.timerStateIndex.value])),
+                Obx(() =>  Text("${c.brewTimer.value}"))
+          ],),
+              ),
+
+          ),
+        );
     }
 
 }
