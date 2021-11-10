@@ -14,7 +14,7 @@ class Controller extends GetxController {
     var  brewTimer = (-1.0).obs;
     var isInitTimer = true.obs;
     var brewIndex = (-1).obs;
-    final timerStateString = ["Pour the wather", "Close brewer and wait", "Pour tea into the cup"];
+    final timerStateString = ["Wlewaj wodę", "Zamknij czajniczek i czekaj", "Wylewaj napar do filiżanki"];
     var timerStateIndex = (0).obs;
     var dividerBounce = (1.0).obs;
 

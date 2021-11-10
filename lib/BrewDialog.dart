@@ -53,7 +53,7 @@ class InitialTimer extends StatelessWidget{
     build(BuildContext context){
         Controller c = Get.find();
         c.startInitialTimer(time);
-        return Center( child: Obx(() =>  Text("Start brewing in: ${c.brewTimer.value.toStringAsFixed(1)} seconds")));
+        return Center( child: Obx(() =>  Text("Zaczni zaparzanie za: ${c.brewTimer.value.toStringAsFixed(1)} sekund")));
     }
 
 }
